@@ -1,0 +1,101 @@
+﻿@{
+    ViewData["Title"] = "WebRTC Remote Call (Powered by AliKhadivi)";
+}
+
+
+
+<div>
+    <h4>Settings:</h4>
+    <div class="row mb-3">
+        <div class="form-check" style="width: auto;">
+            <lable class="form-check-label" for="audio">Audio</lable>
+            <input class="form-check-input" id="audio" type="checkbox" checked />
+        </div>
+        <div class="form-check" style="width: auto;">
+            <lable class="form-check-label" for="camera_front">Front Camera</lable>
+            <input class="form-check-input" id="camera_front" type="checkbox" checked />
+        </div>
+    </div>
+    <div class="mb-3 row" style="align-items: center;">
+        <lable for="camera_width" style="width: auto;">Camera Width: </lable>
+        <input class="form-control" id="camera_width" type="number" value="1920" placeholder="Default (FullHD): 1920" style="width: 220px;">
+
+        <lable for="camera_height" style="width: auto;">Camera Height: </lable>
+        <input class="form-control" id="camera_height" type="number" value="1080" placeholder="Default (FullHD): 1080" style="width: 220px;">
+    </div>
+    <button type="button" class="btn btn-primary" onclick="grabWebCamVideo()">Get Camera</button>
+</div>
+
+<div class="roomCreate row" style="align-items: center;">
+    <h4>Create Room:</h4>
+
+    <label for="name" style="width:auto">Room Name:</label>
+    <input class="form-control mx-1" type="text" id="roomNameTxt" style="width: 220px;" />
+    <button type="button" class="btn btn-primary" id="createRoomBtn" style="width:auto">Create</button>
+</div>
+
+<div>
+    <table id="roomTable" class="display" style="width:100%;">
+        <thead>
+            <tr>
+                <th>Room ID</th>
+                <th>Name</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+
+<div class="borderLine"></div>
+
+<div>
+    <div class="connectionStatus">
+        <p id="connectionStatusMessage">*You can create your own room or join the other room.</p>
+    </div>
+    <div class="controlls">
+        <button type="button" class="btn btn-primary" onclick="document.getElementById('localVideo').requestFullscreen()">Full Local</button>
+        <button type="button" class="btn btn-primary" onclick="document.getElementById('remoteVideo').requestFullscreen()">Full Remote</button>
+        <button type="button" class="btn btn-primary" onclick="document.getElementById('localVideo').muted = !document.getElementById('localVideo').muted">Mute Local</button>
+        <button type="button" class="btn btn-primary" onclick="document.getElementById('remoteVideo').muted = !document.getElementById('remoteVideo').muted">Mute Remote</button>
+        <button type="button" class="btn btn-danger" onclick="location.reload()">Reload</button>
+    </div>
+    <h5>Video chat</h5>
+    <div class="videoArea">
+        <video id="localVideo" autoplay playsinline controls></video>
+        <video id="remoteVideo" autoplay playsinline controls></video>
+    </div>
+
+    <h5>File sharing</h5>
+    <div id="fileShare">
+        <input class="form-control" type="file" id="fileInput">
+        <button type="button" class="btn btn-primary" id="sendFileBtn" class="sendFileBtn">Send</button>
+    </div>
+    <table id="fileTable" class="fileTable">
+        <thead>
+            <tr>
+                <th>Received Files</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+</div>
+
+<div class="AK_Footer">
+    Powered by Ali Khadivi.
+</div>
+
+@section StyleSheets{
+    <link rel="stylesheet" href="~/css/jquery.dataTables.min.css" type="text/css" />
+    <link rel="stylesheet" href="~/css/webrtc.css" type="text/css" />
+}
+
+@section Scripts{
+    <script type="text/javascript" src="~/lib/signalr/dist/browser/signalr.js"></script>
+    <script type="text/javascript" src="~/js/adapter-latest.js"></script>
+    <script type="text/javascript" src="~/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="~/js/webrtc.js"></script>
+}
